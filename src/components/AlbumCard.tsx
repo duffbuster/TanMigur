@@ -1,40 +1,37 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Album } from '@/services/searchAlbums';
 import { Card } from './ui/card';
 
 export function AlbumCard({ album }: { album: Album }) {
-  const [coverSrc, setCoverSrc] = React.useState('');
+  const [coverImage] = React.useState(
+    album.images.find((image) => image.id === album.cover),
+  );
 
-  useEffect(() => {
-    if (coverSrc) {
-      return;
-    }
-
-    album.images.forEach((image) => {
-      if (image.id === album.cover && image.type === 'image/jpeg') {
-        setCoverSrc(image.link);
-      }
-    });
-  }, [album]);
-
-  if (!coverSrc) {
-    return null;
-  }
-
-  // TODO: I want this to be a flowy, borderless layout
-  return (
-    <Card>
-      {/* TODO: Handle videos */}
-      <img
-        src={coverSrc}
-        alt={album.title}
-        className="w-full h-48 object-cover"
-      />
-      {/* <div className="p-2">
+  if (!coverImage) {
+    return (
+      <Card className="w-full">
         <h2 className="text-lg font-bold">{album.title}</h2>
         <p>{album.description}</p>
-      </div> */}
+      </Card>
+    );
+  }
+
+  return (
+    <Card className="w-full">
+      {coverImage.type === 'video/mp4' ? (
+        <video
+          className="w-full"
+          disablePictureInPicture
+          src={coverImage.link}
+          autoPlay
+          controls={false}
+          loop
+          muted
+        />
+      ) : (
+        <img src={coverImage.link} alt={album.title} className="object-cover" />
+      )}
     </Card>
   );
 }
