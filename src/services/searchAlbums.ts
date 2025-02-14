@@ -1,3 +1,13 @@
+export type Image = {
+  link: string;
+  width: number;
+  height: number;
+  id: string;
+  title: string;
+  description: string;
+  type: string;
+};
+
 export type Album = {
   id: string;
   title: string;
@@ -6,6 +16,7 @@ export type Album = {
   cover: string;
   cover_width: number;
   cover_height: number;
+  images: Array<Image>;
 };
 
 const BASE_URL = 'https://api.imgur.com/3/gallery';
