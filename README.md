@@ -4,13 +4,13 @@ A quick and dirty Imgur gallery search using Tanstack router and query.
 
 ShadCn Canary provides the ui components, with styling by Tailwind v4.
 
-# Installation
+## Installation
 
 ```bash
 npm install
 ```
 
-# Development
+## Development
 
 ```bash
 npm run dev
@@ -20,6 +20,6 @@ npm run dev
 
 https://stackoverflow.com/a/66209846
 
-# ENV Variables
+## ENV Variables
 
 `VITE_IMGUR_CLIENT_ID`: Client ID for the Imgur API
