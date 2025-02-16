@@ -4,16 +4,24 @@ import { useState } from 'react';
 import { Image } from '@/services/searchAlbums';
 import { ImageCard } from './ImageCard';
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
+import { useNavigate } from '@tanstack/react-router';
+import { Route } from '@/routes/album.$albumId';
 
 export function ImageList({ images }: { images: Image[] }) {
-  // TODO: Persist this
-  const [fullscreenImage, setFullscreenImage] = useState<Image | null>(null);
+  const { fullscreen } = Route.useSearch();
+  const navigate = useNavigate({ from: Route.fullPath });
+  const [fullscreenImage, setFullscreenImage] = useState<Image | null>(
+    images.find((image) => image.id === fullscreen) || null,
+  );
 
   return (
     <Dialog
       open={fullscreenImage !== null}
       onOpenChange={(open) => {
-        if (!open) setFullscreenImage(null);
+        if (!open) {
+          setFullscreenImage(null);
+          navigate({ search: { fullscreen: undefined } });
+        }
       }}
     >
       <div className="flex flex-wrap justify-center gap-4">
@@ -21,6 +29,7 @@ export function ImageList({ images }: { images: Image[] }) {
           <div
             onClick={() => {
               setFullscreenImage(image);
+              navigate({ search: { fullscreen: image.id } });
             }}
             className="max-w-[19vw] cursor-pointer"
             key={image.id}
