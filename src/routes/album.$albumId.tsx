@@ -4,6 +4,7 @@ import { Error } from '@/components/Error';
 import { ImageCard } from '@/components/ImageCard';
 import { SkeletonCard } from '@/components/SkeletonCard';
 import { fetchAlbum } from '@/services/fetchAlbum';
+import { ImageList } from '@/components/ImageList';
 
 export const Route = createFileRoute('/album/$albumId')({
   component: AlbumComponent,
@@ -26,21 +27,12 @@ function AlbumComponent() {
       <h1 className="mb-10">{album.title}</h1>
 
       {album.images.length === 1 && (
-        <div className="w-[50vw] m-auto">
+        <div className="w-[40vw] m-auto">
           <ImageCard image={album.images[0]} />
         </div>
       )}
 
-      {/* TODO: Add Carousel https://ui.shadcn.com/docs/components/carousel */}
-      {album.images.length > 1 && (
-        <div className="flex flex-wrap justify-center gap-4">
-          {album.images.map((image) => (
-            <div className="max-w-[19vw]" key={image.id}>
-              <ImageCard image={image} />
-            </div>
-          ))}
-        </div>
-      )}
+      {album.images.length > 1 && <ImageList images={album.images} />}
     </div>
   );
 }
