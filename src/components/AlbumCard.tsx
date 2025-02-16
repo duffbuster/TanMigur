@@ -1,10 +1,12 @@
-import React from 'react';
+import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 
 import { Album } from '@/services/searchAlbums';
+import { ImageCard } from './ImageCard';
 import { Card } from './ui/card';
 
 export function AlbumCard({ album }: { album: Album }) {
-  const [coverImage] = React.useState(
+  const [coverImage] = useState(
     album.images.find((image) => image.id === album.cover),
   );
 
@@ -18,20 +20,10 @@ export function AlbumCard({ album }: { album: Album }) {
   }
 
   return (
-    <Card className="w-full">
-      {coverImage.type === 'video/mp4' ? (
-        <video
-          className="w-full"
-          disablePictureInPicture
-          src={coverImage.link}
-          autoPlay
-          controls={false}
-          loop
-          muted
-        />
-      ) : (
-        <img src={coverImage.link} alt={album.title} className="object-cover" />
-      )}
-    </Card>
+    <Link to="/album/$albumId" params={{ albumId: album.id }}>
+      <Card className="w-full cursor-pointer">
+        <ImageCard image={coverImage} />
+      </Card>
+    </Link>
   );
 }

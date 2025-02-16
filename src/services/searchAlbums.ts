@@ -19,22 +19,21 @@ export type Album = {
   images: Array<Image>;
 };
 
-const BASE_URL = 'https://api.imgur.com/3/gallery';
+export const BASE_URL = 'https://api.imgur.com/3';
 
 /**
- * Searches for an album by keyword
+ * Searches for albums by a search term
+ *
+ * @param searchTerm term to search for
+ * @returns an array of albums
  */
 export const searchAlbums = async (
   searchTerm: string,
 ): Promise<Array<Album>> => {
-  const url = new URL(`${BASE_URL}/search`);
+  const url = new URL(`${BASE_URL}/gallery/search`);
   url.searchParams.append('q_all', searchTerm);
   url.searchParams.append('q_type', 'album');
 
-  console.log('searching for albums', searchTerm);
-
-  // This works...
-  // https://pokeapi.co/api/v2/pokemon/ditto
   const response = await fetch(url, {
     headers: {
       Authorization: `Client-ID ${import.meta.env.VITE_IMGUR_CLIENT_ID}`,

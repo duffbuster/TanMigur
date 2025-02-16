@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Link, Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
@@ -26,6 +24,7 @@ function RootComponent() {
             className: 'font-bold',
           }}
           activeOptions={{ exact: true }}
+          search={{ searchTerm: undefined }}
         >
           Search
         </Link>

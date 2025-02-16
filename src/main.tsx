@@ -1,6 +1,8 @@
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
-import { Spinner } from './components/Spinner';
+
+import { Error } from './components/Error';
+import { SkeletonCard } from './components/SkeletonCard';
 import { routeTree } from './routeTree.gen';
 
 // Set up a Router instance
@@ -9,8 +11,11 @@ const router = createRouter({
   defaultPreload: 'intent',
   defaultPendingComponent: () => (
     <div className={`p-2 text-2xl`}>
-      <Spinner />
+      <SkeletonCard />
     </div>
+  ),
+  defaultErrorComponent: ({ error }) => (
+    <Error title="Error" message={error.message} />
   ),
 });
 
