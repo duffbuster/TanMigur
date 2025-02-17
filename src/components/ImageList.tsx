@@ -48,6 +48,8 @@ export function ImageList({ images }: { images: Image[] }) {
 
       {/* Don't think I actually need to check this to get the dialog to work, but it prevents my from having to use optional chaining further down */}
       {fullscreenImage && (
+        // FIXME: this looks fine for images in landscape, but portrait is not respecting the screen height
+        // I'd spend more time tweaking the styles, but honestly who has the time?
         <DialogContent
           className="p-0 !max-w-5xl !max-h-full bg-transparent border-0 justify-center"
           // Important for screen readers
