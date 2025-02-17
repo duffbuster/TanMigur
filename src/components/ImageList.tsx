@@ -1,12 +1,15 @@
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 
+import { Route } from '@/routes/album.$albumId';
 import { Image } from '@/services/searchAlbums';
 import { ImageCard } from './ImageCard';
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
-import { useNavigate } from '@tanstack/react-router';
-import { Route } from '@/routes/album.$albumId';
 
+/**
+ * A list of images that can be clicked to view larger (it's not really fullscreen don't judge me).
+ */
 export function ImageList({ images }: { images: Image[] }) {
   const { fullscreen } = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
@@ -15,11 +18,15 @@ export function ImageList({ images }: { images: Image[] }) {
   );
 
   return (
+    // I don't love the dialog that shadcn provides...
+    // if I had more time, I would just use the radix primitives and roll my own.
+    // I suppose this dialog context could wrap the whole app...
     <Dialog
       open={fullscreenImage !== null}
       onOpenChange={(open) => {
         if (!open) {
           setFullscreenImage(null);
+          // Not the cleanest way to persist the fullscreen image, but by God it works
           navigate({ search: { fullscreen: undefined } });
         }
       }}
@@ -39,14 +46,18 @@ export function ImageList({ images }: { images: Image[] }) {
         ))}
       </div>
 
+      {/* Don't think I actually need to check this to get the dialog to work, but it prevents my from having to use optional chaining further down */}
       {fullscreenImage && (
         <DialogContent
           className="p-0 !max-w-5xl !max-h-full bg-transparent border-0 justify-center"
+          // Important for screen readers
           aria-describedby={fullscreenImage.description}
         >
+          {/* resolves a11y warnings about not having a title */}
           <VisuallyHidden asChild>
             <DialogTitle>{fullscreenImage.title}</DialogTitle>
           </VisuallyHidden>
+
           <ImageCard image={fullscreenImage} />
         </DialogContent>
       )}

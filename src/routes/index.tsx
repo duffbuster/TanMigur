@@ -13,7 +13,7 @@ export const Route = createFileRoute('/')({
   component: HomeComponent,
   validateSearch: (search) => ({
     searchTerm:
-      // Actually typesafe... unlike the docs
+      // Actually typesafe... unlike the docs, which just cast this to string
       typeof search.searchTerm === 'string' ? search.searchTerm : undefined,
   }),
 });
@@ -39,6 +39,7 @@ function HomeComponent() {
   // FIXME: Should preserve scroll when we come back here...
   return (
     <div className="p-2">
+      {/* This should be abstracted to a search component in future state */}
       <Input
         type="text"
         className="outline-0"

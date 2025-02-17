@@ -1,6 +1,9 @@
 import { Album } from '@/services/searchAlbums';
 import { AlbumCard } from './AlbumCard';
 
+/**
+ * A list of albums
+ */
 export function AlbumList({ albums }: { albums: Album[] }) {
   return (
     <div className="flex flex-wrap mt-10">
