@@ -6,13 +6,7 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 function RootComponent() {
   return (
