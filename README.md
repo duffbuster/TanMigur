@@ -4,6 +4,10 @@ A quick and dirty Imgur gallery search using Tanstack router and query.
 
 ShadCn Canary provides the ui components, with styling by Tailwind v4.
 
+This was my first time diving into TanStack, so be gentle.
+
+![](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGsyYnU3dTNmYnRiY3llY2Jzb2tnYXFub2ZwN21yOWN6ZHI1OThnYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Ur8XCl98PfFqEmyNIE/giphy.gif)
+
 ## Installation
 
 ```bash
